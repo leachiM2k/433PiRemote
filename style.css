@@ -1,0 +1,76 @@
+@CHARSET "UTF-8";
+
+.dip-wrapper {
+	background-color: red;
+	position: relative;
+	width: 125px;
+	font-weight: bold;
+	font-size: 10px;
+	color: #fff;
+	text-align: center;
+	line-height: 10px;
+}
+
+.dip-wrapper .tl {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.dip-wrapper .bl {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.dip-wrapper .tr {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.dip-wrapper .br {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.dip-wrapper .switch-wrapper {
+	overflow: hidden;
+	padding: 12px;
+}
+
+.dip-wrapper .switch-wrapper .switch {
+	border: 1px solid black;
+	width: 20px;
+	background-color: #fff;
+	height: 40px;
+	float: left;
+	position: relative;
+}
+
+.dip-wrapper .switch-wrapper .switch .knob {
+	width: 18px;
+	height: 20px;
+	background-color: #bbb;
+}
+
+.dip-wrapper .switch-wrapper .switch .knob.tl {
+	cursor: s-resize;
+}
+
+.dip-wrapper .switch-wrapper .switch .knob.bl {
+	cursor: n-resize;
+}
+
+.dip-wrapper .switch-wrapper .switch .number {
+	margin-top: 40px;
+}
+
+.centered {
+	text-align: center;
+}
+
+td .dip-wrapper {
+	margin: 0 auto;
+}
