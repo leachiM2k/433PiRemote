@@ -76,3 +76,8 @@
 td .dip-wrapper {
 	margin: 0 auto;
 }
+
+#editForm #editSystem {
+	height: 78px;
+	font-size: 36px;
+}

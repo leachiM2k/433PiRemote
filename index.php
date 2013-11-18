@@ -11,11 +11,9 @@
 </head>
 
 <?php
-	$data = array();
-	if(file_exists("data/config.json"))
-	{
-		$data = json_decode(file_get_contents("data/config.json"), true);
-	}
+	include_once 'PiRemote.class.php';
+	$remoteBackend = new PiRemote();
+	$data = $remoteBackend->getEntries();
 ?>
 
   <body>
@@ -23,9 +21,17 @@
 
   		<h1>433PiRemote Verwaltung</h1>
 
+  		<?php if(!$remoteBackend->isConfigWritable()) :?>
+			<div class="alert alert-danger fade in">
+				Die Konfigurationsdatei ist nicht beschreibbar. Es sind keine Änderungen oder Neuanlagen möglich.
+			</div>
+  		<?php endif;?>
+
 		<ul class="nav nav-tabs">
 		  <li class="active"><a href="#home" data-toggle="tab">Übersicht</a></li>
+		  <?php if($remoteBackend->isConfigWritable()) : ?>
 		  <li><a href="#new" data-toggle="tab">Neue Funksteckdose einbinden</a></li>
+		  <?php endif;?>
 		</ul>
 
 		<div class="tab-content">
@@ -39,16 +45,18 @@
 	  				<th style="width: 25%" class="centered">&nbsp;</th>
 	  			</tr>
 	  			<?php foreach($data as $plug) : ?>
-	  			<tr>
+	  			<tr id="entry<?php echo $plug['id']; ?>">
 	  				<td class="centered"><?php echo $plug['id']; ?></td>
-	  				<td><?php echo $plug['name']; ?></td>
+	  				<td class="entryName"><?php echo $plug['name']; ?></td>
 	  				<td class="centered">
-						<span class="system"><?php echo $plug['system']; ?></span>
+						<span class="entrySystem"><?php echo $plug['system']; ?></span>
 					</td>
-	  				<td class="centered"><?php echo $plug['unit']; ?></td>
+	  				<td class="entryUnit centered"><?php echo $plug['unit']; ?></td>
 	  				<td class="centered">
-	  					<a href="javascript:;" rel="<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-pencil edit"> Ändern</a>
-	  					<a href="delete.php?id=<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-remove"> Löschen</a>
+	  					<?php if($remoteBackend->isConfigWritable()) : ?>
+	  						<a href="javascript:;" data-id="<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-pencil edit"> Ändern</a>
+	  						<a href="delete.php?id=<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-remove"> Löschen</a>
+	  					<?php endif; ?>
 	  				</td>
 	  			</tr>
 	  			<?php endforeach; ?>
@@ -65,8 +73,8 @@
 			    		<input type="text" class="form-control" id="newName" placeholder="Name" name="name">
 			  		</div>
 			  		<div class="form-group">
-			    		<label for="newCode">Hauscode / Systemcode</label>
-			    		<input type="text" class="form-control" id="newCode" placeholder="z.B. 01100" name="code">
+			    		<label for="newSystem">Hauscode / Systemcode</label>
+			    		<input type="text" class="form-control" id="newSystem" placeholder="z.B. 01100" name="system">
 			  		</div>
 			  		<div class="form-group">
 			    		<label for="newUnit">Nummer der Funksteckdose</label>
@@ -94,8 +102,11 @@
 			    		<input type="text" class="form-control" id="editName" placeholder="Name" name="name">
 			  		</div>
 			  		<div class="form-group">
-			    		<label for="editCode">Hauscode / Systemcode</label>
-			    		<input type="text" class="form-control" id="editCode" placeholder="z.B. 01100" name="code">
+			    		<label for="editSystem">Hauscode / Systemcode</label>
+			    		<div class="input-group">
+			    			<span class="input-group-addon" id="editSystemDip"></span>
+				    		<input type="text" class="form-control" id="editSystem" placeholder="z.B. 01100" name="system">
+			    		</div>
 			  		</div>
 			  		<div class="form-group">
 			    		<label for="editUnit">Nummer der Funksteckdose</label>
@@ -111,6 +122,7 @@
   	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script src="DIPSwitch.js"></script>
   	<script src="index.js"></script>
 </body>
 </html>
