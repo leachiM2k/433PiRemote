@@ -53,13 +53,15 @@
 	width: 18px;
 	height: 20px;
 	background-color: #bbb;
+	-webkit-box-shadow: inset 0px 0px 5px 0px #000000;
+    box-shadow: inset 0px 0px 5px 0px #000000;
 }
 
-.dip-wrapper .switch-wrapper .switch .knob.tl {
+.dip-wrapper .switch-wrapper .switch.changeable .knob.tl {
 	cursor: s-resize;
 }
 
-.dip-wrapper .switch-wrapper .switch .knob.bl {
+.dip-wrapper .switch-wrapper .switch.changeable .knob.bl {
 	cursor: n-resize;
 }
 

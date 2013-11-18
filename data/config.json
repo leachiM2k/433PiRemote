@@ -1,0 +1,32 @@
+[
+   {
+      "id":"2",
+      "name":"Schrank",
+      "system":"01100",
+      "unit":1
+   },
+   {
+      "id":"3",
+      "name":"Bett",
+      "system":"01100",
+      "unit":2
+   },
+   {
+      "id":"4",
+      "name":"Sessel",
+      "system":"01100",
+      "unit":3
+   },
+   {
+      "id":"5",
+      "name":"Bild",
+      "system":"01100",
+      "unit":4
+   },
+   {
+      "id":"6",
+      "name":"Strobo",
+      "system":"01000",
+      "unit":1
+   }
+]

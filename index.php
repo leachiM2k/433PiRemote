@@ -11,13 +11,11 @@
 </head>
 
 <?php
-	$data = array(
-		array('id' => "2", "name" => "Schrank", "system" => "01100", "unit" => 1),
-		array('id' => "3", "name" => "Bett", "system" => "01100", "unit" => 2),
-		array('id' => "4", "name" => "Sessel", "system" => "01100", "unit" => 3),
-		array('id' => "5", "name" => "Bild", "system" => "01100", "unit" => 4),
-		array('id' => "6", "name" => "Strobo", "system" => "01000", "unit" => 1),
-	);
+	$data = array();
+	if(file_exists("data/config.json"))
+	{
+		$data = json_decode(file_get_contents("data/config.json"), true);
+	}
 ?>
 
   <body>
@@ -45,21 +43,11 @@
 	  				<td class="centered"><?php echo $plug['id']; ?></td>
 	  				<td><?php echo $plug['name']; ?></td>
 	  				<td class="centered">
-					  <div class="dip-wrapper">
-					  	<div class="tl">ON</div><div class="tr">DIP</div>
-					  	<div class="switch-wrapper">
-						  	<div class="switch"><div class="knob tl"></div><div class="number">1</div></div>
-						  	<div class="switch"><div class="knob tl"></div><div class="number">2</div></div>
-						  	<div class="switch"><div class="knob tl"></div><div class="number">3</div></div>
-						  	<div class="switch"><div class="knob tl"></div><div class="number">4</div></div>
-						  	<div class="switch"><div class="knob tl"></div><div class="number">5</div></div>
-						</div>
-					  </div>
-					  <?php echo $plug['system']; ?>
+						<span class="system"><?php echo $plug['system']; ?></span>
 					</td>
 	  				<td class="centered"><?php echo $plug['unit']; ?></td>
 	  				<td class="centered">
-	  					<a href="javascript:;" rel="<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-pencil"> Ändern</a>
+	  					<a href="javascript:;" rel="<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-pencil edit"> Ändern</a>
 	  					<a href="delete.php?id=<?php echo $plug['id']; ?>" class="btn btn-default glyphicon glyphicon-remove"> Löschen</a>
 	  				</td>
 	  			</tr>
@@ -93,19 +81,36 @@
 
 	  </div>
 
-	  <div class="dip-wrapper hidden" id="templateDIPSwitch">
-	  	<div class="tl">ON</div><div class="tr">DIP</div>
-	  	<div class="switch-wrapper">
-		  	<div class="switch"><div class="knob tl"></div><div class="number">1</div></div>
-		  	<div class="switch"><div class="knob tl"></div><div class="number">2</div></div>
-		  	<div class="switch"><div class="knob tl"></div><div class="number">3</div></div>
-		  	<div class="switch"><div class="knob tl"></div><div class="number">4</div></div>
-		  	<div class="switch"><div class="knob tl"></div><div class="number">5</div></div>
-		</div>
-	  </div>
+
+	  <div id="editForm" class="modal fade" role="dialog">
+	    <div class="modal-dialog">
+
+	  		<div class="panel panel-primary">
+	  			<div class="panel-heading">Daten ändern</div>
+
+			  	<form role="form" style="padding:15px;">
+			  		<div class="form-group">
+			    		<label for="editName">Name der Funksteckdose</label>
+			    		<input type="text" class="form-control" id="editName" placeholder="Name" name="name">
+			  		</div>
+			  		<div class="form-group">
+			    		<label for="editCode">Hauscode / Systemcode</label>
+			    		<input type="text" class="form-control" id="editCode" placeholder="z.B. 01100" name="code">
+			  		</div>
+			  		<div class="form-group">
+			    		<label for="editUnit">Nummer der Funksteckdose</label>
+			    		<input type="text" class="form-control" id="editUnit" placeholder="A=1, B=2, C=3" name="unit">
+			  		</div>
+
+					<button type="submit" class="btn btn-default">Ändern</button>
+			  	</form>
+		  	</div>
+	  	</div>
+	</div>
 
   	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-  </body>
+  	<script src="index.js"></script>
+</body>
 </html>
