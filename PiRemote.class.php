@@ -2,7 +2,10 @@
 
 class PiRemote
 {
-	protected $configName = "data/config.json";
+	public function __construct()
+	{
+		$this->configName = __DIR__ . DIRECTORY_SEPARATOR . "data/config.json";
+	}
 
 	public function isConfigWritable()
 	{
@@ -17,6 +20,19 @@ class PiRemote
 			$data = json_decode(file_get_contents($this->configName), true);
 		}
 		return $data;
+	}
+
+	public function getEntry($id)
+	{
+		$data = $this->getEntries();
+		foreach ($data as $entry)
+		{
+			if($entry['id'] == $id)
+			{
+				return $entry;
+			}
+		}
+		return null;
 	}
 
 	public function deleteEntry($id)

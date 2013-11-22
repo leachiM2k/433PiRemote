@@ -2,31 +2,29 @@
    {
       "id":"2",
       "name":"Schrank",
+      "inverseAction": false,
       "system":"01100",
-      "unit":1
+      "unit":"01"
    },
    {
       "id":"3",
-      "name":"Bett",
+      "name":"Fenster",
+      "inverseAction": false,
       "system":"01100",
-      "unit":2
+      "unit":"02"
    },
    {
       "id":"4",
       "name":"Sessel",
+      "inverseAction": false,
       "system":"01100",
-      "unit":3
+      "unit":"03"
    },
    {
       "id":"5",
       "name":"Bild",
-      "system":"01100",
-      "unit":4
-   },
-   {
-      "id":"6",
-      "name":"Strobo",
-      "system":"01000",
-      "unit":1
+      "inverseAction": true,
+      "system":"00000",
+      "unit":"01"
    }
 ]
