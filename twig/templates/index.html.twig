@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+    <title>433PiRemote</title>
+</head>
+<body>
+    <div class="container">
+        <h1>433PiRemote</h1>
+
+        <h2>ALLES</h2>
+
+        <div class="row buttons">
+            <div class="col-xs-6">
+                <a class="btn btn-danger btn-block" href="?all=0">aus</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-success btn-block" href="?all=1">an</a>
+            </div>
+        </div>
+
+        <hr>
+
+        {% for item in data %}
+            <h2>{{ item.name }}</h2>
+            <div class="row buttons">
+                <div class="col-xs-6">
+                    <a class="btn btn-danger btn-block" href="?id={{ item.id }}&action=off">aus</a>
+                </div>
+                <div class="col-xs-6">
+                    <a class="btn btn-success btn-block" href="?id={{ item.id }}&action=on">an</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <p class="well" style="margin-top: 20px;"><a href="admin/">Verwaltung</a></p>
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>

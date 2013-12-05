@@ -1,0 +1,4 @@
+twig/cache/*
+!twig/cache/placeholder
+vendor
+.idea

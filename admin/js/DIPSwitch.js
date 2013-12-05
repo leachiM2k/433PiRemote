@@ -30,18 +30,18 @@ function DIPSwitch(options) {
 	html += '</div>' +
 	  '</div>';
 	
-	this.htmlTemplate = $(html);
+	this.htmlTemplate = jQuery(html);
 
 	if(this.changeable)
 	{
-		this.htmlTemplate.find('.knob').click($.proxy(this.bindKnobEvent, this));
+		this.htmlTemplate.find('.knob').click(jQuery.proxy(this.bindKnobEvent, this));
 		this.htmlTemplate.find('.switch').addClass('changeable');
 	}
 	
 }
 
 DIPSwitch.prototype.bindKnobEvent = function(event) {
-	this.setValue($(event.currentTarget).attr('rel'), !this.values[$(event.currentTarget).attr('rel')]);
+	this.setValue(jQuery(event.currentTarget).attr('rel'), !this.values[jQuery(event.currentTarget).attr('rel')]);
 	this.syncValuesToDip();
 	this.onSwitched();
 };
@@ -102,16 +102,16 @@ DIPSwitch.prototype.setDipValue = function(position, value)
 		var knob = this.htmlTemplate.find('.switch .knob')[position];
 		if(typeof(knob) != "undefined")
 		{
-			$(knob).removeClass('tl');
-			$(knob).removeClass('bl');
+			jQuery(knob).removeClass('tl');
+			jQuery(knob).removeClass('bl');
 			
 			if(value)
 			{
-				$(knob).addClass('tl');
+				jQuery(knob).addClass('tl');
 			}
 			else
 			{
-				$(knob).addClass('bl');
+				jQuery(knob).addClass('bl');
 			}
 		}
 	}
@@ -119,17 +119,17 @@ DIPSwitch.prototype.setDipValue = function(position, value)
 
 DIPSwitch.prototype.insertBefore = function(element)
 {
-	$(this.htmlTemplate).insertBefore(element);
+	jQuery(this.htmlTemplate).insertBefore(element);
 };
 
 DIPSwitch.prototype.insertAfter = function(element)
 {
-	$(this.htmlTemplate).insertAfter(element);
+	jQuery(this.htmlTemplate).insertAfter(element);
 };
 
 DIPSwitch.prototype.insertInside = function(element)
 {
-	$(this.htmlTemplate).appendTo(element);
+	jQuery(this.htmlTemplate).appendTo(element);
 };
 
 DIPSwitch.prototype.syncValuesToDip = function()

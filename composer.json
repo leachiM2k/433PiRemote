@@ -1,0 +1,14 @@
+{
+    "name": "leachiM2k/PiRemote",
+    "description": "PHP interface for remote power sockets",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Michael Rotmanov",
+            "email": "leachim2k@leachim2k.de"
+        }
+    ],
+    "require": {
+        "twig/twig": "1.*"
+    }
+}
