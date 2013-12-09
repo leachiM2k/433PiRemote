@@ -16,19 +16,6 @@
     <div class="container">
         <h1>433PiRemote</h1>
 
-        <h2>ALLES</h2>
-
-        <div class="row buttons">
-            <div class="col-xs-6">
-                <a class="btn btn-danger btn-block" href="?all=0">aus</a>
-            </div>
-            <div class="col-xs-6">
-                <a class="btn btn-success btn-block" href="?all=1">an</a>
-            </div>
-        </div>
-
-        <hr>
-
         {% for item in data %}
             <h2>{{ item.name }}</h2>
             <div class="row buttons">

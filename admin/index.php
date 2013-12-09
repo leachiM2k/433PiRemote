@@ -13,6 +13,20 @@ $twig = new Twig_Environment($twigTemplates, array(
 ));
 
 $remoteBackend = new PiRemote();
+
+if(!empty($_POST) && isset($_POST['action']))
+{
+	$action = $_POST['action'];
+
+	if($action == "update") {
+		$remoteBackend->updateEntry($_POST['id'], $_POST['name'], $_POST['system'], $_POST['unit'], $_POST['inverseAction']);
+	}
+	if($action == "add") {
+		$remoteBackend->addEntry($_POST['name'], $_POST['system'], $_POST['unit'], $_POST['inverseAction']);
+	}
+	header("Location: index.php");
+}
+
 $data = $remoteBackend->getEntries();
 
 $twigParams  = array(

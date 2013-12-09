@@ -77,6 +77,7 @@ td .dip-wrapper {
 	margin: 0 auto;
 }
 
+#newForm #newSystem,
 #editForm #editSystem {
 	height: 78px;
 	font-size: 36px;
