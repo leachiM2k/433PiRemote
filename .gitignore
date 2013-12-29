@@ -1,4 +1,5 @@
 twig/cache/*
 !twig/cache/placeholder
+data/config.json
 vendor
 .idea

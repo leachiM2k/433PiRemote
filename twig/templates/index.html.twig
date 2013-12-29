@@ -3,8 +3,22 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <!-- iOS 6 & 7 iPhone 5 -->
+        <link href="433remote-1096.png"
+              media="(device-width: 320px) and (device-height: 568px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+ 
+        <!-- iOS 6 & 7 iPhone (retina) -->
+        <link href="433remote-920.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -20,10 +34,10 @@
             <h2>{{ item.name }}</h2>
             <div class="row buttons">
                 <div class="col-xs-6">
-                    <a class="btn btn-danger btn-block" href="?id={{ item.id }}&action=off">aus</a>
+                    <a class="btn btn-danger btn-block switch" href="?id={{ item.id }}&action=off">aus</a>
                 </div>
                 <div class="col-xs-6">
-                    <a class="btn btn-success btn-block" href="?id={{ item.id }}&action=on">an</a>
+                    <a class="btn btn-success btn-block switch" href="?id={{ item.id }}&action=on">an</a>
                 </div>
             </div>
         {% endfor %}
@@ -35,5 +49,7 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="js/jquery.color.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

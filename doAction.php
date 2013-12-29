@@ -1,13 +1,6 @@
 <?php
-include_once 'vendor/autoload.php';
 include_once 'PiRemote.class.php';
 $remoteBackend = new PiRemote();
-
-$twigTemplates = new Twig_Loader_Filesystem('twig/templates');
-$twig = new Twig_Environment($twigTemplates, array(
-    'cache' => 'twig/cache',
-#    'debug' => true,
-));
 
 function performAction($group, $switch, $action, $delay)
 {
@@ -41,25 +34,11 @@ if (isset($getId, $getAction))
             $nAction = (!$entry['inverseAction'] ? 0 : 1);
         $nDelay = 0;
         performAction($nGroup, $nSwitch, $nAction, $nDelay);
+    	echo json_encode(array('result' => 'success'));
+    } else {
+    	echo json_encode(array('result' => 'no entry found'));
     }
-    header("Location: index.php?delay=$nDelay");
+
+} else {
+    echo json_encode(array('result' => 'param fail'));
 }
-
-$data = $remoteBackend->getEntries();
-
-if (isset($nAll))
-{
-    foreach ($data as $current)
-    {
-        $ig = $current["system"];
-        $is = $current["unit"];
-        $ii = $current["inverseAction"];
-        if ($ii)
-            $nAll = abs($nAll - 1);
-        performAction($ig, $is, $nAll, $nDelay);
-        time_nanosleep(0, 500000000);
-    }
-    header("Location: index.php?delay=$nDelay");
-}
-
-echo $twig->render("index.html.twig", array("data" => $data));
