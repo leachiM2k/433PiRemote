@@ -3,3 +3,4 @@ twig/cache/*
 data/config.json
 vendor
 .idea
+composer.lock

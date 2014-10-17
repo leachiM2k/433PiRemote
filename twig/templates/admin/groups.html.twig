@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>433PiRemote Admin Groups</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+
+    <h1>433PiRemote Verwaltung - Gruppen</h1>
+
+    {% if not isConfigWritable %}
+        <div class="alert alert-danger fade in">
+            Die Konfigurationsdatei ist nicht beschreibbar. Es sind keine Änderungen oder Neuanlagen möglich.
+        </div>
+    {% endif %}
+
+    <ul class="nav nav-tabs">
+        <li><a href="index.php#home">Übersicht</a></li>
+        {% if isConfigWritable %}
+            <li><a href="index.php#new">Neue Funksteckdose einbinden</a></li>
+        {% endif %}
+        <li class="active" data-toggle="tab"><a href="#">Gruppen</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <table class="table table-striped">
+                <tr>
+                    <th style="width: 15%" class="centered">#</th>
+                    <th style="width: 24%">Name</th>
+                    <th style="width: 18%" class="centered">Steckdosen</th>
+                    <th style="width: 25%" class="centered">&nbsp;</th>
+                </tr>
+                {% for group in groups %}
+                <tr id="entry{{ group.id }}">
+                    <td class="centered">{{ group.id }}</td>
+                    <td class="entryName">{{ group.name }}</td>
+                    <td class="entryUnit centered">
+                        <span class="hide entryDelay">{{ group.delay }}</span>
+                        {% for remote in group.remotes %}
+                            <span class="label label-default entryRemote" data-id="{{ remote.id }}">{{ remote.name }}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="centered">
+                        {% if isConfigWritable %}
+                        <a href="javascript:;" data-id="{{ group.id }}" class="btn btn-default glyphicon glyphicon-pencil edit"> Ändern</a>
+                        <a href="javascript:;" data-id="{{ group.id }}" class="btn btn-default glyphicon glyphicon-remove delete"> Löschen</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div id="editForm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Daten ändern</div>
+
+            <form role="form" style="padding:15px;" method="post">
+                <input type="hidden" id="editId" name="id" value="">
+                <div class="form-group">
+                    <label for="editName">Name der Gruppe</label>
+                    <input type="text" class="form-control" id="editName" placeholder="Name" name="name">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Aktive Steckdosen</label>
+                            <div class="connected enabledRemotes">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Verfügbare Steckdosen</label>
+                            <div class="connected availableRemotes">
+                                {% for remote in remotes %}
+                                    <div class="label label-default dragremote" data-id="{{ remote.id }}">
+                                        <input type="hidden" name="remote[]" value="{{ remote.id }}">
+                                        {{ remote.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDelay">Sendepause (Sekunden)</label>
+                    <input type="text" class="form-control" id="editDelay" placeholder="z.B. 0.25 für 1/4 einer Sekunde" name="delay">
+                </div>
+                <button type="submit" class="btn btn-default" id="editSave" name="action" value="update">Ändern</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/html.sortable/dist/html.sortable.js"></script>
+<script src="js/groups.js"></script>
+</body>
+</html>

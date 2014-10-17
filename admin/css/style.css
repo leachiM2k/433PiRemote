@@ -82,3 +82,22 @@ td .dip-wrapper {
 	height: 78px;
 	font-size: 36px;
 }
+
+.connected {
+    min-height: 20px;
+}
+.dragremote {
+    display: inline-block;
+    margin-right: 5px;
+}
+.sortable-dragging {
+    display: inline-block;
+}
+.sortable-placeholder {
+    display: inline-block;
+    width: 100px;
+    border: 1px dashed #CCCCCC;
+}
+.sortable-placeholder::after {
+    content: '\00a0';
+}

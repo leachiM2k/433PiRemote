@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "name": "Fernsehecke",
+        "remotes": [
+            "4",
+            "5"
+        ],
+        "delay": 0.25
+    },
+    {
+        "id": "2",
+        "name": "Schlafen",
+        "remotes": [
+            "2",
+            "3"
+        ],
+        "delay": 1
+    }
+]

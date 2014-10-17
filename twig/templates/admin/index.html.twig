@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>433PiRemote Admin</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -25,6 +25,7 @@
         {% if isConfigWritable %}
             <li><a href="#new" data-toggle="tab">Neue Funksteckdose einbinden</a></li>
         {% endif %}
+        <li><a href="groups.php">Gruppen</a></li>
     </ul>
 
     <div class="tab-content">
@@ -128,9 +129,9 @@
     </div>
 </div>
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="js/DIPSwitch.js"></script>
 <script src="js/index.js"></script>
 </body>
