@@ -1,8 +1,6 @@
 433PiRemote
-_ remote switch socket web frontend _
 ===========
-
-This is web interface for remote switches.
+This is web interface for remote switch sockets working on 433 MHz band.
 It has two parts: an user interface with simple buttons and an administration part
 with fancy forms and dip switches that enables everyone to add new remote switches.
 
