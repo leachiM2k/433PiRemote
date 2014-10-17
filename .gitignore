@@ -3,4 +3,5 @@ twig/cache/*
 data/config.json
 vendor
 .idea
+.DS_Store
 composer.lock
