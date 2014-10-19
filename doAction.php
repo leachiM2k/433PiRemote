@@ -4,7 +4,7 @@ $remoteBackend = new PiRemote();
 
 function performAction($systemcode, $unitcode, $action, $delay)
 {
-    include_once 'config.php';
+    require 'config.php';
     $output = $systemcode . $unitcode . $action . $delay;
     if (strlen($output) < 8)
         return;
@@ -38,7 +38,7 @@ if (isset($getGroup, $getAction)) {
                 $delay = 0;
                 performAction($remote['system'], $remote['unit'], $nAction, $delay);
                 $triggeredRemotes++;
-                usleep($entry['delay'] * 1000);
+                usleep($entry['delay'] * 1000000);
             }
         }
 
