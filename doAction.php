@@ -1,11 +1,11 @@
 <?php
-include_once 'PiRemote.class.php';
+require_once 'PiRemote.class.php';
 $remoteBackend = new PiRemote();
 
-function performAction($group, $switch, $action, $delay)
+function performAction($systemcode, $unitcode, $action, $delay)
 {
     include_once 'config.php';
-    $output = $group . $switch . $action . $delay;
+    $output = $systemcode . $unitcode . $action . $delay;
     if (strlen($output) < 8)
         return;
     $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create socket\n");
@@ -17,26 +17,49 @@ function performAction($group, $switch, $action, $delay)
 
 /*
  * actually send to the daemon
- * then reload the webpage without parameters
  */
-$getId = (isset($_GET['id']) ? $_GET['id'] : null);
 $getAction = (isset($_GET['action']) ? $_GET['action'] : null);
-if (isset($getId, $getAction))
-{
+$getId = (isset($_GET['id']) ? $_GET['id'] : null);
+$getGroup = (isset($_GET['group']) ? $_GET['group'] : null);
+if (isset($getId, $getAction)) {
+    
+    require_once 'RemoteGroups.class.php';
+    $groupBackend = new RemoteGroups();
+    $entry = $groupBackend->getEntry($getGroup);
+    if (isset($entry)) {
+        $triggeredRemotes = 0;
+
+        foreach ($remoteBackend->getEntries() as $remote) {
+            if (in_array($remote['id'], $remote['remotes'])) {
+                if ($getAction == "on")
+                    $nAction = (!$remote['inverseAction'] ? 1 : 0);
+                if ($getAction == "off")
+                    $nAction = (!$remote['inverseAction'] ? 0 : 1);
+                $delay = 0;
+                performAction($remote['system'], $remote['unit'], $nAction, $delay);
+                $triggeredRemotes++;
+                usleep($entry['delay'] * 1000);
+            }
+        }
+
+        echo json_encode(array('result' => 'success', 'triggered' => $triggeredRemotes));
+    } else {
+        echo json_encode(array('result' => 'no entry found'));
+    }
+
+} elseif (isset($getId, $getAction)) {
+
     $entry = $remoteBackend->getEntry($getId);
-    if (isset($entry))
-    {
-        $nGroup = $entry['system'];
-        $nSwitch = $entry['unit'];
+    if (isset($entry)) {
         if ($getAction == "on")
             $nAction = (!$entry['inverseAction'] ? 1 : 0);
         if ($getAction == "off")
             $nAction = (!$entry['inverseAction'] ? 0 : 1);
-        $nDelay = 0;
-        performAction($nGroup, $nSwitch, $nAction, $nDelay);
-    	echo json_encode(array('result' => 'success'));
+        $delay = 0;
+        performAction($entry['system'], $entry['unit'], $nAction, $delay);
+        echo json_encode(array('result' => 'success'));
     } else {
-    	echo json_encode(array('result' => 'no entry found'));
+        echo json_encode(array('result' => 'no entry found'));
     }
 
 } else {
