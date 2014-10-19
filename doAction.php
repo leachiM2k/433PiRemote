@@ -21,8 +21,8 @@ function performAction($systemcode, $unitcode, $action, $delay)
 $getAction = (isset($_GET['action']) ? $_GET['action'] : null);
 $getId = (isset($_GET['id']) ? $_GET['id'] : null);
 $getGroup = (isset($_GET['group']) ? $_GET['group'] : null);
-if (isset($getId, $getAction)) {
-    
+if (isset($getGroup, $getAction)) {
+
     require_once 'RemoteGroups.class.php';
     $groupBackend = new RemoteGroups();
     $entry = $groupBackend->getEntry($getGroup);
