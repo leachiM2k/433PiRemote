@@ -30,7 +30,7 @@ if (isset($getGroup, $getAction)) {
         $triggeredRemotes = 0;
 
         foreach ($remoteBackend->getEntries() as $remote) {
-            if (in_array($remote['id'], $remote['remotes'])) {
+            if (in_array($remote['id'], $entry['remotes'])) {
                 if ($getAction == "on")
                     $nAction = (!$remote['inverseAction'] ? 1 : 0);
                 if ($getAction == "off")
