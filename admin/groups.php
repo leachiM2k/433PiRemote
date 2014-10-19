@@ -10,7 +10,7 @@ include_once $includeBaseDir . 'RemoteGroups.class.php';
 $twigTemplates = new Twig_Loader_Filesystem($includeBaseDir . 'twig/templates');
 $twig = new Twig_Environment($twigTemplates, array(
     'cache' => $includeBaseDir . 'twig/cache',
-    'debug' => true,
+#    'debug' => true,
 ));
 
 $groupsBackend = new RemoteGroups();
@@ -48,5 +48,6 @@ $twigParams  = array(
     'groups' => $groups,
     'remotes' => $remotes,
     'isConfigWritable' => $groupsBackend->isConfigWritable(),
+    'baseUrl' => pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME),
 );
 echo $twig->render("admin/groups.html.twig", $twigParams);
