@@ -70,7 +70,7 @@ $groups = $groupsBackend->getEntries();
 $twigParams = array(
     'data' => $data,
     'groups' => $groups,
-    'baseUrl' => rtrim(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), '/'),
+    'baseUrl' => rtrim(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME), '/'),
 );
 
 echo $twig->render("index.html.twig", $twigParams);

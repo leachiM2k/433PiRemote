@@ -32,6 +32,6 @@ $data = $remoteBackend->getEntries();
 $twigParams  = array(
     'data' => $data,
     'isConfigWritable' => $remoteBackend->isConfigWritable(),
-    'baseUrl' => pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME),
+    'baseUrl' => pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME),
 );
 echo $twig->render("admin/index.html.twig", $twigParams);
