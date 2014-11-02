@@ -30,19 +30,45 @@
     <div class="container">
         <h1>433PiRemote</h1>
 
-        {% for item in data %}
-            <h2>{{ item.name }}</h2>
-            <div class="row buttons">
-                <div class="col-xs-6">
-                    <a class="btn btn-danger btn-block switch" href="?id={{ item.id }}&action=off">aus</a>
+        <div id="remotes" class="section">
+            {% for item in data %}
+                <h2>{{ item.name }}</h2>
+                <div class="row buttons">
+                    <div class="col-xs-6">
+                        <a class="btn btn-danger btn-block switch" href="?id={{ item.id }}&action=off">aus</a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a class="btn btn-success btn-block switch" href="?id={{ item.id }}&action=on">an</a>
+                    </div>
                 </div>
-                <div class="col-xs-6">
-                    <a class="btn btn-success btn-block switch" href="?id={{ item.id }}&action=on">an</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
 
-        <p class="well" style="margin-top: 20px;"><a href="admin/">Verwaltung</a></p>
+        <div id="groups" class="section hidden">
+            {% for group in groups %}
+                <h2>{{ group.name }}</h2>
+                <div class="row buttons">
+                    <div class="col-xs-6">
+                        <a class="btn btn-danger btn-block switch" href="?group={{ group.id }}&action=off">aus</a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a class="btn btn-success btn-block switch" href="?group={{ group.id }}&action=on">an</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 20px">
+            <nav class="navbar navbar-default" role="navigation">
+                <ul class="nav navbar-nav sectionTrigger">
+                    <li class="active"><a href="#remotes">Einzeln</a></li>
+                    <li><a href="#groups">Gruppen</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="admin/">Verwaltung</a></li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -51,5 +77,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script src="js/jquery.color.js"></script>
     <script src="js/index.js"></script>
+    <script src="{{ baseUrl }}/bower_components/fastclick/lib/fastclick.js"></script>
 </body>
 </html>
