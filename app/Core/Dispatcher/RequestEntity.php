@@ -15,6 +15,7 @@ class RequestEntity
     private $method;
     private $header = [];
     private $query = [];
+    private $body;
 
     public function __construct(array $meta)
     {
@@ -112,4 +113,35 @@ class RequestEntity
         $this->query = $query;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param mixed $body
+     * @return RequestEntity
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * @param string $specificKey
+     * @return string
+     */
+    public function getBodyValue(string $specificKey): ?string
+    {
+        if (!is_array($this->body)) {
+            return null;
+        }
+        return isset($this->body[$specificKey]) ? $this->body[$specificKey] : null;
+    }
+
 }

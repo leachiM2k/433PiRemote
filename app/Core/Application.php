@@ -24,7 +24,8 @@ class Application
         $request = new RequestEntity($_SERVER);
         $request->setMethod($_SERVER['REQUEST_METHOD'])
             ->setHeader(getallheaders())
-            ->setQuery($_GET);
+            ->setQuery($_GET)
+            ->setBody($_POST);
 
         $dispatcher = new Dispatcher($this->configuration);
         $response = $dispatcher->dispatch($request);
@@ -32,9 +33,10 @@ class Application
         $redirect = $response->getRedirect();
         if (isset($redirect)) {
             header('Location: ' . $redirect);
+            return;
         }
         if ($response->getHttpCode() !== 200) {
-            header('HTTP/1.0 ' . $response->getHttpCode() . ' ' . $response->getHttpMessage());
+            http_response_code(200);
         }
 
         if (in_array('application/json', $this->getAcceptedContentTypes($request))) {

@@ -1,0 +1,23 @@
+{
+  "name": "433-pi-remote",
+  "homepage": "https://github.com/leachiM2k/433PiRemote",
+  "authors": [
+    "Michael Rotmanov <leachim2k@googlemail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fastclick": "^1.0.6",
+    "bootstrap": "~3.2.0",
+    "html.sortable": "~0.1.6"
+  }
+}

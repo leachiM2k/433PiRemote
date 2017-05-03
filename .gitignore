@@ -1,7 +1,6 @@
 twig/cache/*
 !twig/cache/placeholder
-data/config.json
 vendor
 .idea
 .DS_Store
-composer.lock
+public/assets/bower_components

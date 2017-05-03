@@ -14,6 +14,8 @@ interface StorageInterface
 
     public function getEntry(string $tableName, $id): array;
 
+    public function hasWriteRights(string $tableName): bool;
+
     public function addEntry(string $tableName, $newEntry): bool;
 
     public function updateEntry(string $tableName, $id, $newEntry): bool;

@@ -22,13 +22,20 @@ class RemoteGroups
         return $this->storage->getEntry(self::TABLENAME, $id);
     }
 
-    public function addEntry($name, $remote, $delay)
+    public function hasWriteRights()
     {
-        // TODO
+        return $this->storage->hasWriteRights(self::TABLENAME);
     }
 
-    public function updateEntry($id, $name, $remote, $delay)
+    public function addEntry($name, $remote, $delay): bool
     {
         // TODO
+        return false;
+    }
+
+    public function updateEntry($id, $name, $remote, $delay): bool
+    {
+        // TODO
+        return false;
     }
 }

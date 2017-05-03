@@ -44,6 +44,16 @@ class FileStorage implements StorageInterface
         return null;
     }
 
+    /**
+     * @param string $tableName
+     * @return bool
+     */
+    public function hasWriteRights(string $tableName): bool
+    {
+        $filename = $this->getConfigFileName($tableName);
+        return is_writable($filename);
+    }
+
     public function addEntry(string $tableName, $newEntry): bool
     {
         $entries = $this->getEntries($tableName);
@@ -89,6 +99,6 @@ class FileStorage implements StorageInterface
     protected function writeEntries(string $tableName, array $entries): bool
     {
         $filename = $this->getConfigFileName($tableName);
-        return file_put_contents($filename, json_encode($entries)) !== false;
+        return file_put_contents($filename, json_encode($entries, JSON_PRETTY_PRINT)) !== false;
     }
 }

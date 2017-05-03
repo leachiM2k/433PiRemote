@@ -27,9 +27,11 @@ class Dispatcher
             '/' => 'Resource\IndexResource',
             '/do/' => 'Resource\DoResource',
             '/admin/' => 'Resource\Admin\IndexResource',
+            '/admin/delete/' => 'Resource\Admin\DeleteResource',
+            '/admin/groups/' => 'Resource\Admin\GroupsResource',
         ];
 
-        $url = $request->getCurrentUrl();
+        $url = rtrim($request->getCurrentUrl(), '/') . '/';
         if (isset($routingMap[$url])) {
             $method = strtolower($request->getMethod());
             $resource = $routingMap[$url];

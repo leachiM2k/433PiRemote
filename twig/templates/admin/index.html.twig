@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>433PiRemote Admin</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{{ baseUrl }}/../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="{{ baseUrl }}/../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{{ baseUrl }}/assets/css/admin.css">
 </head>
 <body>
@@ -25,7 +25,7 @@
         {% if isConfigWritable %}
             <li><a href="#new" data-toggle="tab">Neue Funksteckdose einbinden</a></li>
         {% endif %}
-        <li><a href="groups.php">Gruppen</a></li>
+        <li><a href="{{ baseUrl }}/admin/groups">Gruppen</a></li>
     </ul>
 
     <div class="tab-content">
@@ -51,7 +51,7 @@
                     <td class="centered">
                         {% if isConfigWritable %}
                         <a href="javascript:;" data-id="{{ plug.id }}" class="btn btn-default glyphicon glyphicon-pencil edit"> Ändern</a>
-                        <a href="delete.php?id={{ plug.id }}" class="btn btn-default glyphicon glyphicon-remove"> Löschen</a>
+                        <a href="{{ baseUrl }}/admin/delete?id={{ plug.id }}" class="btn btn-default glyphicon glyphicon-remove"> Löschen</a>
                         {% endif %}
                     </td>
                 </tr>
@@ -129,9 +129,9 @@
     </div>
 </div>
 
-<script src="{{ baseUrl }}/../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ baseUrl }}/assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="{{ baseUrl }}/../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ baseUrl }}/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="{{ baseUrl }}/assets/js/DIPSwitch.js"></script>
 <script src="{{ baseUrl }}/assets/js/admin.js"></script>
 </body>

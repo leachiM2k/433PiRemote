@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Core\Storage\StorageInterface;
@@ -22,55 +23,56 @@ class PiRemote
         return $this->storage->getEntry(self::TABLENAME, $id);
     }
 
-	public function addEntry($name, $system, $unit, $inverseAction)
-	{
-		if (!isset($name, $system, $unit) || empty($name) || empty($system) || empty($unit))
-		{
-			return false;
-		}
-
-		$newEntry = $this->generateEntry(null, $name, $system, $unit, $inverseAction);
-
-		return $this->storage->addEntry(self::TABLENAME, $newEntry);
+    public function hasWriteRights()
+    {
+        return $this->storage->hasWriteRights(self::TABLENAME);
     }
 
-	public function updateEntry($id, $name, $system, $unit, $inverseAction)
-	{
-		if (!isset($id, $name, $system, $unit) || empty($id) || empty($name) || empty($system) || empty($unit))
-		{
-			return false;
-		}
+    public function addEntry($name, $system, $unit, $inverseAction)
+    {
+        if (!isset($name, $system, $unit) || empty($name) || empty($system) || empty($unit)) {
+            return false;
+        }
 
-		$newEntry = $this->generateEntry($id, $name, $system, $unit, $inverseAction);
+        $newEntry = $this->generateEntry(null, $name, $system, $unit, $inverseAction);
 
-		return $this->storage->updateEntry(self::TABLENAME, $id, $newEntry);
-	}
+        return $this->storage->addEntry(self::TABLENAME, $newEntry);
+    }
 
-	public function deleteEntry($id)
-	{
-		return $this->storage->deleteEntry(self::TABLENAME, $id);
-	}
+    public function updateEntry($id, $name, $system, $unit, $inverseAction)
+    {
+        if (!isset($id, $name, $system, $unit) || empty($id) || empty($name) || empty($system) || empty($unit)) {
+            return false;
+        }
 
-	private function generateEntry($id = null, $name, $system, $unit, $inverseAction)
-	{
-		if (!isset($id))
-		{
-			$id = uniqid();
-		}
+        $newEntry = $this->generateEntry($id, $name, $system, $unit, $inverseAction);
 
-		$newEntry = array(
-			'id'     => $id,
-			'name'   => $name,
-			'system' => $system,
-			'unit'   => str_pad($unit, 2, "0", STR_PAD_LEFT),
-		);
+        return $this->storage->updateEntry(self::TABLENAME, $id, $newEntry);
+    }
 
-		if (isset($inverseAction))
-		{
-			$newEntry['inverseAction'] = true;
-		}
+    public function deleteEntry($id)
+    {
+        return $this->storage->deleteEntry(self::TABLENAME, $id);
+    }
 
-		return $newEntry;
-	}
+    private function generateEntry($id = null, $name, $system, $unit, $inverseAction)
+    {
+        if (!isset($id)) {
+            $id = uniqid();
+        }
+
+        $newEntry = array(
+            'id' => $id,
+            'name' => $name,
+            'system' => $system,
+            'unit' => str_pad($unit, 2, "0", STR_PAD_LEFT),
+        );
+
+        if (isset($inverseAction)) {
+            $newEntry['inverseAction'] = true;
+        }
+
+        return $newEntry;
+    }
 
 }
