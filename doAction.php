@@ -15,6 +15,20 @@ function performAction($systemcode, $unitcode, $action, $delay)
     socket_close($socket);
 }
 
+function performPilightCall($entry, $state) {
+    require 'config.php';
+    $output = array();
+    $output['code'] = $entry['code'];
+    $output['action'] = 'send';
+    $output['code'][$state] = 1;
+    $output = json_encode($output);
+    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create socket\n");
+    socket_bind($socket, $source) or die("Could not bind to socket\n");
+    socket_connect($socket, $pilightHost, $pilightPort) or die("Could not connect to socket\n");
+    socket_write($socket, $output, strlen($output)) or die("Could not write output\n");
+    socket_close($socket);
+}
+
 /*
  * actually send to the daemon
  */
@@ -51,12 +65,16 @@ if (isset($getGroup, $getAction)) {
 
     $entry = $remoteBackend->getEntry($getId);
     if (isset($entry)) {
-        if ($getAction == "on")
-            $nAction = (!$entry['inverseAction'] ? 1 : 0);
-        if ($getAction == "off")
-            $nAction = (!$entry['inverseAction'] ? 0 : 1);
-        $delay = 0;
-        performAction($entry['system'], $entry['unit'], $nAction, $delay);
+        if ($entry['pilight']) {
+            performPilightCall($entry, $getAction);
+        } else {
+            if ($getAction == "on")
+                $nAction = (!$entry['inverseAction'] ? 1 : 0);
+            if ($getAction == "off")
+                $nAction = (!$entry['inverseAction'] ? 0 : 1);
+            $delay = 0;
+            performAction($entry['system'], $entry['unit'], $nAction, $delay);
+        }
         echo json_encode(array('result' => 'success'));
     } else {
         echo json_encode(array('result' => 'no entry found'));
