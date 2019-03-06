@@ -4,3 +4,5 @@ vendor
 .idea
 .DS_Store
 public/assets/bower_components
+node_modules
+*.log

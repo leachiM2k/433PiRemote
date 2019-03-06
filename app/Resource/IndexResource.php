@@ -27,7 +27,7 @@ class IndexResource extends AbstractResource
         ];
 
         $response = new ResponseEntity();
-        $response->setTemplate('index')
+        $response->setTemplate('spa')
             ->setPayload($payload);
         return $response;
     }

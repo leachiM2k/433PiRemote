@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="{{ baseUrl }}/favicon.png">
+    <link rel="apple-touch-icon" href="{{ baseUrl }}/apple-touch-icon.png">
+
+    <!-- iOS 6 & 7 iPhone 5 -->
+    <link href="{{ baseUrl }}/433remote-1096.png"
+          media="(device-width: 320px) and (device-height: 568px)
+                 and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 & 7 iPhone (retina) -->
+    <link href="{{ baseUrl }}/433remote-920.png"
+          media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <meta charset="UTF-8">
+    <title>433PiRemote</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>var _seed = {{_context|json_encode|raw}};</script>
+    <script src="./dist/js/bundle.js"></script>
+</body>
+</html>
