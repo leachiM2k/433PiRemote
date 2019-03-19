@@ -25,6 +25,7 @@ class Dispatcher
     {
         $routingMap = [
             '/' => 'Resource\IndexResource',
+            '/api/' => 'Resource\IndexResource',
             '/do/' => 'Resource\DoResource',
             '/admin/' => 'Resource\Admin\IndexResource',
             '/admin/delete/' => 'Resource\Admin\DeleteResource',

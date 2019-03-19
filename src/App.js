@@ -1,5 +1,27 @@
 import Preact from 'preact';
 
+const get = url => {
+    return fetch(url, { headers: { 'Accept': 'application/json' } })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Something went wrong ...');
+            }
+        });
+};
+
+const highlight = color => {
+    document.getElementsByTagName("body")[0].animate([
+        // keyframes
+        { backgroundColor: color },
+        { backgroundColor: 'transparent' }
+    ], {
+        // timing options
+        duration: 250
+    });
+};
+
 class App extends Preact.Component {
     constructor() {
         super();
@@ -12,17 +34,11 @@ class App extends Preact.Component {
     }
 
     componentDidMount() {
+        this.getFreshData();
     }
 
     getFreshData() {
-        fetch('/', { headers: { 'Accept': 'application/json' } })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
-            })
+        get('/api')
             .then(data => this.setState({
                 data: data.data,
                 groups: data.groups,
@@ -31,6 +47,16 @@ class App extends Preact.Component {
             }))
             .catch(error => this.setState({ error, isLoading: false }));
     }
+
+    handleActionClick = event => {
+        event.preventDefault();
+        const target = event.target;
+        get(target.href).then(data => {
+            highlight(data.result === "success" ? '#008800' : '#880000');
+        }).catch(err => {
+            highlight('#880000');
+        });
+    };
 
     render() {
         const { data, groups, baseUrl } = this.state;
@@ -45,10 +71,12 @@ class App extends Preact.Component {
                             <div className="row buttons">
                                 <div className="col-xs-6">
                                     <a className="btn btn-danger btn-block switch"
+                                       onClick={this.handleActionClick}
                                        href={`${baseUrl}/do/?id=${item.id}&action=off`}>aus</a>
                                 </div>
                                 <div className="col-xs-6">
                                     <a className="btn btn-success btn-block switch"
+                                       onClick={this.handleActionClick}
                                        href={`${baseUrl}/do/?id=${item.id}&action=on`}>an</a>
                                 </div>
                             </div>
@@ -63,10 +91,12 @@ class App extends Preact.Component {
                             <div className="row buttons">
                                 <div className="col-xs-6">
                                     <a className="btn btn-danger btn-block switch"
+                                       onClick={this.handleActionClick}
                                        href={`${baseUrl}/do/?group=${group.id}&action=off`}>aus</a>
                                 </div>
                                 <div className="col-xs-6">
                                     <a className="btn btn-success btn-block switch"
+                                       onClick={this.handleActionClick}
                                        href={`${baseUrl}/do/?group=${group.id}&action=on`}>an</a>
                                 </div>
                             </div>
