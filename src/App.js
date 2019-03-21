@@ -40,9 +40,10 @@ class App extends Preact.Component {
     getFreshData() {
         get('/api')
             .then(data => this.setState({
-                data: data.data,
+		    data,
+                /*data: data.data,
                 groups: data.groups,
-                baseUrl: data.baseUrl,
+                baseUrl: data.baseUrl,*/
                 isLoading: false
             }))
             .catch(error => this.setState({ error, isLoading: false }));

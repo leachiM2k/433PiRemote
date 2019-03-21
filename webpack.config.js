@@ -1,5 +1,8 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 module.exports = (env, argv) => {
     let config = {
@@ -21,9 +24,12 @@ module.exports = (env, argv) => {
             extensions: ['*', '.js', '.jsx']
         },
         plugins: [
-            new CleanWebpackPlugin(['public/dist/js']),
+            //new CleanWebpackPlugin(['public/dist/js']),
+	    new HtmlWebpackPlugin({inlineSource: '.(js|css)$', template: __dirname + '/public/dist/index.html', minify: true, filename: 'index.html'}),
+		new HtmlWebpackInlineSourcePlugin(),
+		new CompressionPlugin({}),
         ],
-        output: {
+	output: {
             path: __dirname + '/public/dist/js',
             publicPath: '/dist/js',
             filename: 'bundle.js',
