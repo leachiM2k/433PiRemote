@@ -66,39 +66,19 @@ class App extends Preact.Component {
             <div className="container">
                 <h1>433PiRemote</h1>
                 <div id="remotes" className="section">
-                    {data.map(item => (
+                    {data.map((item, id) => (
                         <div>
                             <h2>{item.name}</h2>
                             <div className="row buttons">
                                 <div className="col-xs-6">
                                     <a className="btn btn-danger btn-block switch"
                                        onClick={this.handleActionClick}
-                                       href={`${baseUrl}/do/?id=${item.id}&action=off`}>aus</a>
+                                       href={`${baseUrl}/api/switch?id=${id}&action=off`}>aus</a>
                                 </div>
                                 <div className="col-xs-6">
                                     <a className="btn btn-success btn-block switch"
                                        onClick={this.handleActionClick}
-                                       href={`${baseUrl}/do/?id=${item.id}&action=on`}>an</a>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div id="groups" className="section hidden">
-                    {groups.map(group => (
-                        <div>
-                            <h2>{group.name}</h2>
-                            <div className="row buttons">
-                                <div className="col-xs-6">
-                                    <a className="btn btn-danger btn-block switch"
-                                       onClick={this.handleActionClick}
-                                       href={`${baseUrl}/do/?group=${group.id}&action=off`}>aus</a>
-                                </div>
-                                <div className="col-xs-6">
-                                    <a className="btn btn-success btn-block switch"
-                                       onClick={this.handleActionClick}
-                                       href={`${baseUrl}/do/?group=${group.id}&action=on`}>an</a>
+                                       href={`${baseUrl}/api/switch?id=${id}&action=on`}>an</a>
                                 </div>
                             </div>
                         </div>
